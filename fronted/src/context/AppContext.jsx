@@ -12,6 +12,7 @@ const AppContextProvider = (props) => {
     const [error, setError] = useState(null);
     const [retryCount, setRetryCount] = useState(0);
     const [token,setToken] = useState(localStorage.getItem('token')?localStorage.getItem('token'):false)
+     const [userData, setUserData] = useState(false)
    
     const getDoctorsData = async () => {
         setLoading(true);
@@ -49,6 +50,21 @@ const AppContextProvider = (props) => {
             setLoading(false);
         }
     };
+    const loadUserProfileData =  async()=> {
+        try {
+            const {data}= await axios.get(backendUrl + '/api/user/get-profile',{headers:{token}})
+            if (data.success) {
+                setUserData(data.userData)
+            }else{
+                toast.error(data.message)
+            }
+            
+        } catch (error) {
+            console.log(error)
+            
+            toast.error(error.message)
+        }
+    }
 
     useEffect(() => {
         const ac = new AbortController();
@@ -56,13 +72,30 @@ const AppContextProvider = (props) => {
         return () => ac.abort();
     }, [retryCount]);
 
+
+    useEffect(()=>{
+        if (token) {
+            loadUserProfileData()
+            
+            
+        }
+        else{
+            setUserData(false)
+        }
+
+    },[token])
+
+    
+
     const value = {
-        doctors,
+        doctors,getDoctorsData,
         currencySymbol,
         loading,
         error,
         token,setToken,
-        backendUrl
+        backendUrl,
+        userData,setUserData,
+        loadUserProfileData
     };
 
     return (
