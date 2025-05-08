@@ -11,16 +11,25 @@ const AdminContextProvider = (props) => {
 
     const getAllDoctors = async () => {
         try {
+<<<<<<< HEAD
             console.log('Fetching doctors with token:', aToken)
+=======
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
             const {data} = await axios.post(backendUrl + '/api/admin/all-doctors', {}, {
                 headers: {
                     aToken: aToken
                 }
             })
+<<<<<<< HEAD
             console.log('Doctors fetch response:', data)
             if (data.success) {
                 setDoctors(data.doctors)
                 console.log('Doctors set:', data.doctors)
+=======
+            if (data.success) {
+                setDoctors(data.doctors)
+                console.log(data.doctors)
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
             } else{
                 toast.error(data.message)
             }

@@ -17,12 +17,19 @@ const App = () => {
     <div style={{ backgroundColor: '#f8f9fd'}}>
       <ToastContainer />
       <Navbar />
+<<<<<<< HEAD
       
+=======
+      <Sidebar />
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
       <div style={{ 
         marginLeft: '200px', // Account for fixed sidebar width
         padding: '20px'
       }}>
+<<<<<<< HEAD
          <Sidebar />
+=======
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
         <Routes>
           <Route path='/' element={<></>} />
           <Route path='/admin-dashboard' element={<Dashboard />} />

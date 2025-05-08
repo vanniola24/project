@@ -1,5 +1,9 @@
 import { createContext, useEffect, useState } from "react";
+<<<<<<< HEAD
 import axios from 'axios'
+=======
+import axios from 'axios';
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
 import { toast } from "react-toastify";
 
 export const AppContext = createContext();
@@ -11,8 +15,11 @@ const AppContextProvider = (props) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [retryCount, setRetryCount] = useState(0);
+<<<<<<< HEAD
     const [token,setToken] = useState(localStorage.getItem('token')?localStorage.getItem('token'):false)
      const [userData, setUserData] = useState(false)
+=======
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
    
     const getDoctorsData = async () => {
         setLoading(true);
@@ -21,7 +28,16 @@ const AppContextProvider = (props) => {
             const url = `${backendUrl}/api/doctor/list`;
             console.log('Fetching doctors from:', url);
             
+<<<<<<< HEAD
             const {data} = await axios.get(backendUrl + '/api/doctor/list');
+=======
+            const {data} = await axios.get(url, {
+                timeout: 5000,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
 
             if (data.success) {
                 if (data.doctors?.length > 0) {
@@ -50,6 +66,7 @@ const AppContextProvider = (props) => {
             setLoading(false);
         }
     };
+<<<<<<< HEAD
     const loadUserProfileData =  async()=> {
         try {
             const {data}= await axios.get(backendUrl + '/api/user/get-profile',{headers:{token}})
@@ -65,6 +82,8 @@ const AppContextProvider = (props) => {
             toast.error(error.message)
         }
     }
+=======
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
 
     useEffect(() => {
         const ac = new AbortController();
@@ -72,6 +91,7 @@ const AppContextProvider = (props) => {
         return () => ac.abort();
     }, [retryCount]);
 
+<<<<<<< HEAD
 
     useEffect(()=>{
         if (token) {
@@ -96,6 +116,13 @@ const AppContextProvider = (props) => {
         backendUrl,
         userData,setUserData,
         loadUserProfileData
+=======
+    const value = {
+        doctors,
+        currencySymbol,
+        loading,
+        error
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
     };
 
     return (

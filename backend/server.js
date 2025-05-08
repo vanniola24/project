@@ -3,7 +3,10 @@ import cors from 'cors'
 import 'dotenv/config' 
 import connectDB from './config/mongodb.js'
 import connectCloudinary from './config/cloudinary.js'
+<<<<<<< HEAD
 import userRouter from './routes/userRoute.js'
+=======
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
 
 //app config
 const app = express()
@@ -25,7 +28,10 @@ async function startServer() {
         //api endpoints
         app.use('/api/admin', adminRouter)
         app.use('/api/doctor', doctorRouter)
+<<<<<<< HEAD
         app.use('/api/user',userRouter)
+=======
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
         
         app.get('/', (req, res) => {
             res.send('API WORKING')

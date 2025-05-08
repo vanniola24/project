@@ -16,7 +16,11 @@ const AddDoctor = () => {
   const [degree, setDegree] = useState("");
   const [adress1, setAdress1] = useState("");
   const [adress2, setAdress2] = useState("");
+<<<<<<< HEAD
  
+=======
+  const [availability, setAvailability] = useState("");
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
 
   const { backendUrl, aToken } = useContext(AdminContext);
 
@@ -29,7 +33,10 @@ const AddDoctor = () => {
       }
 
       const formData = new FormData();
+<<<<<<< HEAD
       formData.append("image",docImg);
+=======
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
 
       formData.append("name", name);
       formData.append("email", email);
@@ -37,13 +44,20 @@ const AddDoctor = () => {
       formData.append("experience", experience);
       formData.append("fees", Number(fees));
       formData.append("about", about);
+<<<<<<< HEAD
       formData.append("speciality", Speciality);
+=======
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
       formData.append("degree", degree);
       formData.append(
         "adress", 
         JSON.stringify({ line1: adress1, line2: adress2 })
       );
+<<<<<<< HEAD
    
+=======
+      formData.append("availability", availability);
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
 
       //console log fprmdata
 
@@ -414,8 +428,35 @@ const AddDoctor = () => {
         </div>
 
             <div style={{ padding: "0 20px 20px" }}>
+<<<<<<< HEAD
               
              
+=======
+              <p
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "600",
+                  color: "#444",
+                  marginBottom: "8px",
+                }}
+              >
+                Availability Slots (JSON format)
+              </p>
+              <textarea
+                onChange={(e) => setAvailability(e.target.value)}
+                placeholder='Example: {"2023-11-20": ["09:00", "10:30"], "2023-11-21": ["11:00", "14:00"]}'
+                rows={3}
+                style={{
+                  width: "100%",
+                  padding: "12px",
+                  border: "1px solid #ddd",
+                  borderRadius: "6px",
+                  fontSize: "14px",
+                  resize: "vertical",
+                  marginBottom: "20px"
+                }}
+              />
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
               <p
                 style={{
                   fontSize: "14px",

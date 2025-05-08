@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+<<<<<<< HEAD
 import { useContext } from 'react'
 import { AppContext } from '../context/AppContext'
 import {assets} from '../assets/assets'
@@ -57,6 +58,28 @@ const MyProfile = () => {
         :<img className='w-36 rounded' src={userData.image} alt="Profile" />
       }
       
+=======
+import { assets } from '../assets/assets'
+
+const MyProfile = () => {
+  const [userData, setUserData] = useState({
+    name: "shutter vanny",
+    image: assets.profile_pic,
+    email: 'shutttervanny@gmail.com',
+    phone: '+254796749535',
+    address: {
+      line1: '17th street Eastleigh',
+      line2: '14 section Madiwa'
+    },
+    gender: 'male',
+    dob: '2001-08-02'
+  })
+  const [isEdit, setIsEdit] = useState(false)
+
+  return (
+    <div className='max-w-1g flex flex-col gap-2 text-sm'>
+      <img className='w-36 rounded' src={userData.image} alt="Profile" />
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
 
       {
         isEdit 
@@ -79,6 +102,7 @@ const MyProfile = () => {
           {
             isEdit
             ?  <p>
+<<<<<<< HEAD
             <input  className='bg-gray-50' onChange={(e) => setUserData(prev =>({...prev,address:{...prev.address,line1:e.target.value}}))} value={userData.address} type="text" />
             <br />
             <input className='bg-gray-50' onChange={(e) => setUserData(prev =>({...prev,address:{...prev.address,line2:e.target.value}}))} value={userData.address} type="text" />
@@ -87,6 +111,16 @@ const MyProfile = () => {
               {userData.address}
               <br />
               {userData.address}
+=======
+            <input  className='bg-gray-50' onChange={(e) => setUserData(prev =>({...prev,address:{...prev.address,line1:e.target.value}}))} value={userData.address.line1} type="text" />
+            <br />
+            <input className='bg-gray-50' onChange={(e) => setUserData(prev =>({...prev,address:{...prev.address,line2:e.target.value}}))} value={userData.address.line2} type="text" />
+          </p>
+            : <p className='text-gray-500'>
+              {userData.address.line1}
+              <br />
+              {userData.address.line2}
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
             </p>
           }
         </div>
@@ -114,7 +148,11 @@ const MyProfile = () => {
       <div className='mt-10'>
         {
           isEdit
+<<<<<<< HEAD
           ? <button className='border border-purple- px-8 py-2 rounded-full hover:bg-purple-700 hover:text-white transition-all' onClick={updateUserProfileData}>Save Information</button>
+=======
+          ? <button className='border border-purple- px-8 py-2 rounded-full hover:bg-purple-700 hover:text-white transition-all' onClick={()=>setIsEdit(false)}>Save Information</button>
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
           : <button className='border border-purple px-8 py-2 rounded-full hover:bg-purple-700 hover:text-white transition-all' onClick={()=>setIsEdit(true)}>Edit</button>
         }
       </div>

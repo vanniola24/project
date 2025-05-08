@@ -22,7 +22,11 @@ import cross_icon from './cross_icon.jpeg'
 import verified_icon from './verified_icon.png'
 
 import info_icon from './info_icon.png'
+<<<<<<< HEAD
  import upload_area from './upload_area.png'
+=======
+// import upload_icon from './upload_icon.png'
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
 // import stripe_logo from './stripe_logo.png'
 // import razorpay_logo from './razorpay_logo.png'
 import doc1 from './doc1.jpg'
@@ -70,7 +74,11 @@ export const assets = {
     // menu_icon,
     cross_icon,
    
+<<<<<<< HEAD
      upload_area,
+=======
+    // upload_icon,
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
     // stripe_logo,
     // razorpay_logo
 }

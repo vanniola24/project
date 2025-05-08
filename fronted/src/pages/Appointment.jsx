@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+<<<<<<< HEAD
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 import { assets } from '../assets/assets';
@@ -14,6 +15,18 @@ const Appointment = () => {
 
   const navigate = useNavigate()
 
+=======
+import { useParams } from 'react-router-dom';
+import { AppContext } from '../context/AppContext';
+import { assets } from '../assets/assets';
+import RelatedDoctors from '../components/RelatedDoctors';
+
+const Appointment = () => {
+  const { docId } = useParams();
+  const { doctors, currencySymbol } = useContext(AppContext);
+  const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT'];
+
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
   const [docInfo, setDocInfo] = useState(null);
   const [docSlots, setDocSlots] = useState([]);
   const [slotIndex, setSlotIndex] = useState(0);
@@ -51,6 +64,7 @@ const Appointment = () => {
       while (currentDate < endTime) {
         let formattedTime = currentDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
+<<<<<<< HEAD
         let day = currentDate.getDate()
         let month = currentDate.getMonth() + 1
         let year = currentDate.getFullYear()
@@ -70,6 +84,13 @@ const Appointment = () => {
 
         // Push time slot with datetime and formatted time
        
+=======
+        // Push time slot with datetime and formatted time
+        timeSlots.push({
+          datetime: new Date(currentDate),
+          time: formattedTime, // Add formatted time
+        });
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
 
         // Increment time by 30 minutes
         currentDate.setMinutes(currentDate.getMinutes() + 30);
@@ -78,6 +99,7 @@ const Appointment = () => {
     }
   };
 
+<<<<<<< HEAD
   const bookAppointment = async () => {
     if (!token) {
       toast.warn('login to book appointment')
@@ -109,6 +131,8 @@ const Appointment = () => {
     }
   }
 
+=======
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
   useEffect(() => {
     fetchDocInfo();
   }, [doctors, docId]);
@@ -174,7 +198,11 @@ const Appointment = () => {
           </p>
         ))}
       </div>
+<<<<<<< HEAD
       <button onClick={bookAppointment} className='bg-purple-500 text-white text-sm font-light px-14 py-14 py-2 rounded-full my-6'>Book an Appointment</button>
+=======
+      <button className='bg-purple-500 text-white text-sm font-light px-14 py-14 py-2 rounded-full my-6'>Book an Appointment</button>
+>>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
       </div>
 
       {/*related doctors */}
