@@ -14,6 +14,7 @@ const port = process.env.PORT || 4001
 app.use(express.json())
 app.use(cors())
 
+
 async function startServer() {
     try {
         await connectDB()

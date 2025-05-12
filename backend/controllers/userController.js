@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken'
 import {v2 as cloudinary} from 'cloudinary'
 import doctorModel from '../models/doctorModel.js'
 import appointmentModel from '../models/appointmentModel.js'
-import razorpay from 'razorpay'
 
 //api to register user
 const registerUser = async (req,res) => {
@@ -87,32 +86,50 @@ const getProfile = async (req,res) => {
 }
 
 //api to update user profile data
-const updateProfile = async (req,res) => {
-    try {
-        const {userId,name,phone,address,dob,gender} = req.body
-        const imageFile = req.imageFile
+const updateProfile = async (req, res) => {
+  try {
+    const { userId, name, phone, address, dob, gender } = req.body;
+    const imageFile = req.imageFile;
 
-        if (!name || !phone || !dob || !gender) {
-            return res.json({success:false,message:"missing data"})
-        }
-
-        await userModel.findByIdAndUpdate(userId, {name, phone, address: JSON.parse(address), dob, gender})
-
-        if (imageFile) {
-            //upload image to cloudinary
-            const imageUpload = await cloudinary.uploader.upload(imageFile.path, {resource_type:'image'})
-            const imageUrl = imageUpload.secure_url
-
-            await userModel.findByIdAndUpdate(userId, {image: imageUrl})
-        }
-
-        res.json({success:true,message:"profile updated successfully"})
-
-    } catch (error) {
-        console.log(error)
-        res.json({success:false,message:error.message})
+    if (!name || !phone || !dob || !gender) {
+      return res.json({ success: false, message: "missing data" });
     }
-}
+
+    let parsedAddress = {};
+    if (address) {
+      try {
+        parsedAddress = JSON.parse(address);
+      } catch (err) {
+        return res.json({ success: false, message: "Invalid address format" });
+      }
+    }
+
+    await userModel.findByIdAndUpdate(userId, {
+      name,
+      phone,
+      address: parsedAddress,
+      dob,
+      gender,
+    });
+
+    if (imageFile) {
+      const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
+        resource_type: "image",
+      });
+      const imageUrl = imageUpload.secure_url;
+
+      await userModel.findByIdAndUpdate(userId, { image: imageUrl });
+    }
+
+    res.json({ success: true, message: "profile updated successfully" });
+
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+
 
 //api to book appointment
 const bookAppointment = async (req,res) => {
@@ -212,54 +229,6 @@ const cancelAppointment = async (req,res) => {
     }
 }
 
-const razorpayInstance = new razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET
-})
-
-//api to make payment using razorpay
-const paymentRazorpay = async (req,res) => {
-    try {
-        const {appointmentId} = req.body
-        const appointmentData = await appointmentModel.findById(appointmentId)
-
-        if(!appointmentData || appointmentData.cancelled){
-            return res.json({success:false,message:"appointment not found"})
-        }
-        //create options for payment
-        const options = {
-            amount: appointmentData.amount * 100,
-            currency: process.env.CURRENCY,
-            receipt: appointmentId
-        }
-        // creation of an order
-        const order = await razorpayInstance.orders.create(options)
-        res.json({success:true,order})
-
-    } catch (error) {
-        console.log(error)
-        res.json({success:false,message:error.message})
-    }
-}
-
-//api to verify payment
-const verifyRazorpay = async (req,res) => {
-    try {
-        const {razorpay_order_id} = req.body
-        const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id)
-
-        if (orderInfo.status === 'paid') {
-            await appointmentModel.findByIdAndUpdate(orderInfo.receipt, {payment:true})
-            res.json({success:true,message:"payment successful"})
-        } else {
-            res.json({success:false,message:"payment failed"})
-        }
-    } catch (error) {
-        console.log(error)
-        res.json({success:false,message:error.message})
-    }
-}
-
 export {
     registerUser,
     loginUser,
@@ -267,7 +236,5 @@ export {
     updateProfile,
     bookAppointment,
     listAppointment,
-    cancelAppointment,
-    paymentRazorpay,
-    verifyRazorpay
+    cancelAppointment
 }

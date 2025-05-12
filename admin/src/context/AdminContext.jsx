@@ -6,33 +6,32 @@ export const AdminContext = createContext()
 const AdminContextProvider = (props) => {
     const [aToken, setAToken] = useState(localStorage.getItem('aToken') ? localStorage.getItem('aToken'):'')
     const [doctors,setDoctors] = useState([])
+    const [appointments,setAppointments] = useState([])
 
-    const backendUrl = import.meta.env.VITE_BACKEND_URL
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+console.log('Backend URL:', backendUrl); // ✅ Add this here
+
 
     const getAllDoctors = async () => {
         try {
-<<<<<<< HEAD
+
             console.log('Fetching doctors with token:', aToken)
-=======
->>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
+
+
             const {data} = await axios.post(backendUrl + '/api/admin/all-doctors', {}, {
                 headers: {
                     aToken: aToken
                 }
             })
-<<<<<<< HEAD
+
             console.log('Doctors fetch response:', data)
             if (data.success) {
                 setDoctors(data.doctors)
                 console.log('Doctors set:', data.doctors)
-=======
-            if (data.success) {
-                setDoctors(data.doctors)
-                console.log(data.doctors)
->>>>>>> f2a2abe875e847af356aace865bb7907cd153d0f
-            } else{
+
                 toast.error(data.message)
             }
+            
         } catch (error) {
             toast.error(error.message)
         }
@@ -53,12 +52,30 @@ const AdminContextProvider = (props) => {
         }
     }
 
+    const getAllAppointments = async () => {
+        try {
+            const {data} = await axios.get(backendUrl + '/api/admin/appointments',{headers:{aToken}})
+            if(data.success) {
+                setAppointments(data.appointments)
+                console.log(data.appointments)
+
+            }
+            else{
+                toast.error(data.message)
+            } 
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
     const value = {
         aToken,
         setAToken,
         backendUrl,
         doctors,
         getAllDoctors,changeAvailability,
+        appointments,setAppointments,
+        getAllAppointments
     }
     return (
         <AdminContext.Provider value={value}>
